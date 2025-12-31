@@ -14,6 +14,7 @@ import { db } from './firebase';
 // Collection names
 const ENGINEERS_COLLECTION = 'engineers';
 const INVOICES_COLLECTION = 'invoices';
+const TRANSFER_HISTORY_COLLECTION = 'transferHistory';
 
 // Engineer operations
 export const engineerService = {
@@ -128,6 +129,84 @@ export const invoiceService = {
       return { success: true };
     } catch (error) {
       console.error('Error deleting invoice:', error);
+      throw error;
+    }
+  }
+};
+
+// Transfer History operations
+export const transferHistoryService = {
+  // Add a transfer record
+  async addTransfer(transferData) {
+    try {
+      const docRef = await addDoc(collection(db, TRANSFER_HISTORY_COLLECTION), {
+        ...transferData,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+      return { id: docRef.id, success: true };
+    } catch (error) {
+      console.error('Error adding transfer:', error);
+      throw error;
+    }
+  },
+
+  // Get transfer history for an engineer
+  async getTransfersByEngineerId(engineerId) {
+    try {
+      const q = query(
+        collection(db, TRANSFER_HISTORY_COLLECTION),
+        orderBy('transferDate', 'desc')
+      );
+      const querySnapshot = await getDocs(q);
+      const allTransfers = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      return allTransfers.filter(transfer => transfer.engineerId === engineerId);
+    } catch (error) {
+      console.error('Error getting transfers:', error);
+      throw error;
+    }
+  },
+
+  // Get all transfer history
+  async getAllTransfers() {
+    try {
+      const q = query(collection(db, TRANSFER_HISTORY_COLLECTION), orderBy('transferDate', 'desc'));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+    } catch (error) {
+      console.error('Error getting all transfers:', error);
+      throw error;
+    }
+  },
+
+  // Update a transfer record
+  async updateTransfer(id, transferData) {
+    try {
+      const transferRef = doc(db, TRANSFER_HISTORY_COLLECTION, id);
+      await updateDoc(transferRef, {
+        ...transferData,
+        updatedAt: serverTimestamp()
+      });
+      return { success: true };
+    } catch (error) {
+      console.error('Error updating transfer:', error);
+      throw error;
+    }
+  },
+
+  // Delete a transfer record
+  async deleteTransfer(id) {
+    try {
+      await deleteDoc(doc(db, TRANSFER_HISTORY_COLLECTION, id));
+      return { success: true };
+    } catch (error) {
+      console.error('Error deleting transfer:', error);
       throw error;
     }
   }
