@@ -39,8 +39,8 @@ System for managing engineers and trainees working in Japan.
 ### Cài đặt (Setup)
 ```bash
 # Clone repository
-git clone https://github.com/nthminh/Qu-n-l-h-a-n-Japan.git
-cd Qu-n-l-h-a-n-Japan
+git clone https://github.com/nthminh/QL-KS-Japan.git
+cd QL-KS-Japan
 
 # Không cần cài đặt thêm thư viện (No additional libraries needed)
 ```
