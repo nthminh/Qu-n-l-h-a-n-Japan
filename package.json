@@ -26,13 +26,19 @@
       "last 1 safari version"
     ]
   },
-  "keywords": ["invoice", "management", "japan", "engineer", "intern"],
+  "keywords": [
+    "invoice",
+    "management",
+    "japan",
+    "engineer",
+    "intern"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "firebase": "^12.7.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "5.0.1"
   }
 }
