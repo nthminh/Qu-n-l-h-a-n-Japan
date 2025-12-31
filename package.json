@@ -1,0 +1,38 @@
+{
+  "name": "ql-ks-japan",
+  "version": "1.0.0",
+  "description": "Dùng để quản lý hóa đơn xuất ra theo từng công ty ở Nhật. Cập nhật danh sách các kỹ sư và tu nghiệp sinh đang làm việc.",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "keywords": ["invoice", "management", "japan", "engineer", "intern"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^12.7.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-scripts": "^5.0.1"
+  }
+}

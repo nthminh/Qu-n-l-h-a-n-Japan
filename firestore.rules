@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Engineers collection
+    match /engineers/{engineerId} {
+      // Allow read if authenticated
+      allow read: if isSignedIn();
+      // Allow write (create, update, delete) if authenticated
+      allow write: if isSignedIn();
+    }
+
+    // Invoices collection
+    match /invoices/{invoiceId} {
+      // Allow read if authenticated
+      allow read: if isSignedIn();
+      // Allow write (create, update, delete) if authenticated
+      allow write: if isSignedIn();
+    }
+  }
+}
