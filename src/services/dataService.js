@@ -7,6 +7,7 @@ import {
   getDocs, 
   query, 
   orderBy,
+  where,
   serverTimestamp 
 } from 'firebase/firestore';
 import { db } from './firebase';
@@ -156,14 +157,14 @@ export const transferHistoryService = {
     try {
       const q = query(
         collection(db, TRANSFER_HISTORY_COLLECTION),
+        where('engineerId', '==', engineerId),
         orderBy('transferDate', 'desc')
       );
       const querySnapshot = await getDocs(q);
-      const allTransfers = querySnapshot.docs.map(doc => ({
+      return querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
-      return allTransfers.filter(transfer => transfer.engineerId === engineerId);
     } catch (error) {
       console.error('Error getting transfers:', error);
       throw error;

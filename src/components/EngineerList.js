@@ -11,6 +11,7 @@ function EngineerList() {
   const [showTransferForm, setShowTransferForm] = useState(false);
   const [showTransferHistory, setShowTransferHistory] = useState(false);
   const [selectedEngineer, setSelectedEngineer] = useState(null);
+  const [historyEngineer, setHistoryEngineer] = useState(null);
   const [transferHistory, setTransferHistory] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -183,7 +184,9 @@ function EngineerList() {
       try {
         await transferHistoryService.deleteTransfer(transferId);
         alert('Xóa lịch sử thành công!');
-        loadTransferHistory(selectedEngineer.id);
+        if (historyEngineer) {
+          loadTransferHistory(historyEngineer.id);
+        }
       } catch (error) {
         alert('Lỗi khi xóa: ' + error.message);
       } finally {
@@ -216,12 +219,11 @@ function EngineerList() {
                 />
               </div>
               <div className="form-group">
-                <label>Ngày sinh *</label>
+                <label>Ngày sinh</label>
                 <input
                   type="date"
                   value={formData.dateOfBirth}
                   onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                  required
                 />
               </div>
             </div>
@@ -367,9 +369,9 @@ function EngineerList() {
         </div>
       )}
 
-      {showTransferHistory && selectedEngineer && (
+      {showTransferHistory && historyEngineer && (
         <div className="form-container">
-          <h3>Lịch sử chuyển công ty - {selectedEngineer.name}</h3>
+          <h3>Lịch sử chuyển công ty - {historyEngineer.name}</h3>
           {transferHistory.length === 0 ? (
             <p>Chưa có lịch sử chuyển công ty</p>
           ) : (
@@ -471,7 +473,7 @@ function EngineerList() {
                       </button>
                       <button 
                         onClick={() => {
-                          setSelectedEngineer(engineer);
+                          setHistoryEngineer(engineer);
                           loadTransferHistory(engineer.id);
                         }} 
                         className="btn-history"

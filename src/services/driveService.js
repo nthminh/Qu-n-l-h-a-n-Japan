@@ -15,8 +15,8 @@ export const driveService = {
    */
   generateFolderName(name, dateOfBirth) {
     if (!name || !dateOfBirth) return '';
-    // Remove spaces and special characters from name
-    const cleanName = name.replace(/\s+/g, '_');
+    // Remove special characters and replace with underscore
+    const cleanName = name.replace(/[^a-zA-Z0-9]/g, '_');
     // Format date as YYYYMMDD
     const cleanDate = dateOfBirth.replace(/-/g, '');
     return `${cleanName}_${cleanDate}`;
