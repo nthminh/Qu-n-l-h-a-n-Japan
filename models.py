@@ -74,6 +74,9 @@ class Employee:
                 monthly_cost=data['monthly_cost']
             )
         elif employee_type == EmployeeType.TRAINEE:
+            # Trainees must have an end date
+            if not data['end_date']:
+                raise ValueError(f"Trainee {data['employee_id']} must have an end date")
             return Trainee(
                 employee_id=data['employee_id'],
                 name=data['name'],

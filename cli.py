@@ -58,8 +58,12 @@ class CLI:
                     return datetime.strptime(value, "%Y-%m-%d")
             except ValueError:
                 print(f"Invalid input. Please try again.")
-            except (EOFError, KeyboardInterrupt):
-                # Allow user to exit gracefully with Ctrl+C or Ctrl+D
+            except EOFError:
+                # Handle Ctrl+D gracefully
+                print("\nInput cancelled.")
+                raise
+            except KeyboardInterrupt:
+                # Re-raise to allow graceful shutdown
                 raise
     
     def add_company(self):
